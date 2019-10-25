@@ -5,9 +5,9 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import copy 
 
-
-def fnc(c):
+def fnc(c):   #<----------- Edit the funcn as per reqmnts
     g = 9.81 
     m = 68.1
     t = 10.0
@@ -17,33 +17,50 @@ def fnc(c):
 
 
 def bisection(g1,g2):
-    if fnc(g1) * fnc(g2) > 0 :
-        print("Provide better guess")
-    elif fnc(g1) * fnc(g2) == 0 :
+    
+    eps =  1E-11 #<-------------------Edit here
+    if fnc(g1)* fnc(g2) < 0 :
+    
+     if np.abs(g1-g2) < eps :
          return g1 
-     else :
-         cr = (g1+g2)/2
-         
+
+     while np.abs(g1-g2) > eps :
+
+      cr = (g1+g2)/2
+
+      if fnc(g1) * fnc(cr) > 0 : 
+         #print("g2",g2,"\t cr",cr,"\n")
+         return  bisection(cr,g2)
+
+      else :
+        #print("g1",g1,"\t cr",cr,"\n")
+         return bisection(g1,cr)
+      
+
+    else :
+      print("Provide better initial guess")
 
 
 
-# Preliminary inspection by graph
 
-cg = np.linspace(1.0,100,101)
-fg = np.zeros(len(cg))
+# Preliminary inspection by graph 
+# Uncomment the following line for new test cases and plugin the values
 
-for i in range(len(cg)):
-    fg[i] = fnc(cg[i])
+#cg = np.linspace(1.0,100,101) <----------- Edit here
+#fg = np.zeros(len(cg))
 
-plt.figure()
-plt.plot(cg,fg,'-k')
+#for i in range(len(cg)):
+#    fg[i] = fnc(cg[i])
+
+#plt.figure()
+#plt.plot(cg,fg,'-k')
 #plt.show()
 
-# Root lies b/w c = 1, 20
+# Observed from graph that root lies b/w c = 1, 20
 
-cig = [1,20]
+cig = [1,20]  #<---------------Edit here
 
-if fnc(cig[0])*fnc(cig[1]) > 0 :
-   print("Please provide a better guess")
-   else:
-       cr = (cig[0] + cig[1] )/2
+root = bisection(cig[0],cig[1])
+
+print("\n The root is ",root) 
+

@@ -9,7 +9,7 @@ praphulmenon@gmail.com
 # Contents 
 
 #================================================
-# Folder - 01_Bracketing Methods
+ Folder - 01_Bracketing Methods
 #================================================
 
  ------ 01) Bisection algorithm 
